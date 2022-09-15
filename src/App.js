@@ -19,7 +19,7 @@ const columns = [
   { name: "rating" },
 ];
 
-let allRows, makeRow, k = 0;
+let allRows, makeRow, count = 0;
 
 const options = {
   filterType: "dropdown",
@@ -34,8 +34,8 @@ const options = {
 const addToWatchList = (e) => {
   e.preventDefault();
   makeRow.map((row) => {
-    localStorage.setItem(k, allRows[row]);
-    k++;
+    localStorage.setItem(count, allRows[row]);
+    count++;
   });
   alert("Items Added to the Watch list");
   window.location.reload();
@@ -44,8 +44,8 @@ const addToWatchList = (e) => {
 async function getData(path) {
   const res = await fetch(path);
   const results = await res.json();
-  let t = results.data;
-  return t.map((row) => {
+  let temp = results.data;
+  return temp.map((row) => {
     return columns.map((column) => {
       return row[column.name] || "";
     });
@@ -57,7 +57,6 @@ export default class App extends React.Component {
     super(props);
     this.state = {
       results: [],
-
       counter: 0,
     };
   }
